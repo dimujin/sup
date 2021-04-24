@@ -82,52 +82,9 @@ $values = implode(',', $data);
 
 $sql = "INSERT INTO yourtable ($fields) VALUES $values";
 echo $sql.PHP_EOL;
-//-------------------------------------------------------------------------------------
-//$fields = implode(', ', array_shift($array));
 
-//$values = array();
-//foreach ($array as $rowValues) {
-//    foreach ($rowValues as $key => $rowValue) {
-//         $rowValues[$key] = $rowValues[$key];
-//    }
-//    $values[] = "(" . implode(', ', $rowValues) . ")";
-//}
-//$query = "INSERT INTO table_name ($fields) VALUES (" . implode (', ', $values) . ")";
-//		echo $query.PHP_EOL;
-		
-//---------------------------------------------------------------------------------------
-//$count = count($array);
-//$keys = $array[0];
-//for($i = 1; $i < $count; $i++)
-//{
-//   $query = "INSERT INTO tablename (" . implode(",", $keys) . ") VALUES ('" . implode ("','", $array[$i]) . "');";
-//   $query = str_replace(',)', ')', $query);
-//   mysql_query($query);
-//	echo $query.PHP_EOL;
-//}
-//-------------------------------------------------------------------------------------- multi insert
-//$i=0;			
 $ins = array();
-//foreach ($array as $key=>$row) {
-//echo '<pre>'.print_r ($row).'</pre>';
-//$newdata = implode(",", array_keys($array)); //ключи массива array_keys($array)
-//    echo "<pre> --- " .$newdata."</pre>";	 
-//    $ins[] = $db->parse("(NULL,?s,?s, NOW())",$key,$row);
-//++$i;
-//}
-//$instr = implode(",",$ins);
-//$query=	query("INSERT INTO table VALUES ?p",$instr);
-//$db->query("INSERT INTO table VALUES ?p",$instr);
-//		echo $query.PHP_EOL;
-//-----------------------------------------		
-		
-//  print '<pre>';
-//	if (isset($_POST['eid'])) echo $_POST['eid'];
-//	print '</pre>';
-//POST-переменные
-//	echo '<pre>'.print_r($_POST,true).'</pre>';
-//	echo '<pre>'.print_r($_REQUEST).'</pre>';	
-//	echo '<pre>';
+
 		foreach( $_POST as $key=>$value )
 		{							
 			if (!is_array($value)) {
@@ -135,56 +92,24 @@ $ins = array();
 				$flag = stristr ($key, 'ball');
 			// Если такие индексы нашлись, то 
 				if($flag){
-//		echo "\n flag: $flag; Значение key: $key<br />\n";	
-					$qsn = substr($key , 4);    // обрезаем ball первые 4 символа оставляя только "цифры"
-//	не вставляется 	$data = array ('qsn'=>$qsn,'ball'=>$value, 'eid'=>$eid, 'userid'=>$_SESSION['key']);
-//					$data['qsn']=$qsn;
-//					$data['ball']=$value; //собираем баллы
-									
-//					foreach ($data  as $k=>$v) echo "\n $k: $v <br/>\n";
-					$data[$flag]=$value;
-//					
-				}
 
-//					foreach ($data  as $k=>$v) echo "\n в итоге: $k: $v <br/>\n";
 					unset( $value );	// для удаления переменной
 			}
 
 			else {
 				foreach($value as $key=>$eid)
 				{
-//					echo "\n Вложенный массив Ключ: $key; Значение eid: $eid<br />\n";
-//					$data = $value;
-//					$data = array('eid'=>$eid);
-//					$data['userid']=$_SESSION['key'];
-					$data[$key]=$eid;
-//	если здесь вставляю			$sql = 'INSERT INTO '.$table.' SET date=unix_timestamp(), ip=inet_aton(?s),?u';
-//	не вставляются  qsn и ball	$db->query($sql, $ip, $data);
-				}
-//	foreach ($data  as $k=>$v) echo "\n разбираем массив data: $k: $v <br/>\n";	
-
 			unset( $value );	// для удаления переменной
 		}
 
 	echo '<pre>'.print_r($data).'</pre>';	
 
-	
-//$my_array = array('a'=>'1', 'b'=>'2', 'c'=>'3');
-//$my_array +=	array('d'=>'4', 'e'=>'5', 'f'=>'6');
-//echo "\n\n----".implode(',',array_keys($my_array));
-//echo "\n\n----".implode(',',$my_array)."\n\n";		
-		}
-
-		
 		  if($page != ($total+1))
 		  {
 //			header("location:../quest.php?page=$page")or die('Error3');
 			}     
 		  else if( $_SESSION['key']=$_SESSION['key']){
 	
-//		$select="SELECT q.eid, q.title, q.sahi, q.total, q.time, q.intro, q.tag, @wrong:=SUM(ball), ?s, ?s, ?s FROM quiz q, answer a WHERE a.eid=q.eid AND a.userid=$userid GROUP BY q.eid" ;
-//		$insert='INSERT INTO history (eid,title,sahi,total,time,intro,tag,sum,ip,userid,date,wrong)'; 
-//		$db->query($insert, $select, $ip, $userid, time() ); 
 
 		  $db->query("INSERT INTO history (eid,title,sahi,total,time,intro,tag,sum,wrong,ip,userid,date) SELECT q.eid, q.title, q.sahi, q.total, q.time, q.intro, q.tag, SUM(ball), SUM(ball)/q.sahi*100, ?s, ?s, ?s FROM quiz q, answer a WHERE a.eid=q.eid AND a.userid='$userid' GROUP BY q.eid", $ip, $userid, time() ); 
 //		  $db->query("DELETE FROM answer WHERE userid='$userid'");
