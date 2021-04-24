@@ -1,0 +1,23 @@
+{
+  "name": "001personal-main",
+  "description": "основной проект",
+  "main": "index.php",
+  "authors": [
+    "dmitry taylakov"
+  ],
+  "license": "Apache 2.0",
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~1.10.1",
+    "bootstrap": "~3.3.4",
+    "chartist": "^0.11.0"
+  }
+}
